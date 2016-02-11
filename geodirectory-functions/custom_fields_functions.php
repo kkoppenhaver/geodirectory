@@ -1870,11 +1870,12 @@ function geodir_show_listing_info($fields_location=''){
 							//print_r($_POST);
 							if($preview){	$html .= stripslashes($post->$html_var).$addition_fields.'</p>' ;}
 							else{
-								if($post->post_address){ $html .= '<span itemprop="streetAddress">'.$post->post_address.'</span><br>';}
-								if($post->post_city){ $html .= '<span itemprop="addressLocality">'.$post->post_city.'</span><br>';}
-								if($post->post_region){ $html .= '<span itemprop="addressRegion">'.$post->post_region.'</span><br>';}
-								if($post->post_zip){ $html .= '<span itemprop="postalCode">'.$post->post_zip.'</span><br>';}
-								if($post->post_country){ $html .= '<span itemprop="addressCountry">'.__( $post->post_country, GEODIRECTORY_TEXTDOMAIN ).'</span><br>';}
+							  // NH: removed <br> tags 
+								if($post->post_address){ $html .= '<span itemprop="streetAddress">'.$post->post_address.'</span>';}
+								if($post->post_city){ $html .= '<span itemprop="addressLocality">'.$post->post_city.'</span>';}
+								if($post->post_region){ $html .= '<span itemprop="addressRegion">'.$post->post_region.'</span>';}
+								if($post->post_zip){ $html .= '<span itemprop="postalCode">'.$post->post_zip.'</span>';}
+								if($post->post_country){ $html .= '<span itemprop="addressCountry">'.__( $post->post_country, GEODIRECTORY_TEXTDOMAIN ).'</span>';}
 								$html .= '</div>';
 							}
 							

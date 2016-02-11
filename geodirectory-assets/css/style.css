@@ -247,7 +247,7 @@ margin-right:0px;
 #comments .comments-title{ margin:0;}
 #reviewsTab ol.commentlist li{ width:auto; padding:0; border-bottom:1px #ccc dashed;}
 #reviewsTab .comments-area ol.commentlist article{ margin:15px 0;}
-#reviewsTab .comments-area article header cite, #reviewsTab .comments-area article header time,#reviewsTab .comments-area article header span.item{ margin:0 0 0 12%;display: block;}
+#reviewsTab .comments-area article header cite, #reviewsTab .comments-area article header time,#reviewsTab .comments-area article header span.item{ margin:0 0 0 10%;display: block;}
 #reviewsTab .comments-area article header{ margin-bottom:15px;}
 #reviewsTab .comments-area .comment-content p span{ font-size:14px; font-weight:bold; margin-bottom:5px; color:#666; padding-top:3px;}
 #reviewsTab .comments-area .comment-content p{ margin-bottom:8px;}
@@ -266,6 +266,7 @@ padding: 0;
 line-height: 0;
 top:0px;
 left:0px;
+width: 60px;
 }
 #reviewsTab .comments-area article header cite {
 font-style: normal;

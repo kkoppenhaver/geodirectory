@@ -90,7 +90,7 @@ do_action('geodir_before_main_content','listing-preview-page');
 	
 	
 	?>
-    		
+    		<h1>Something</h1>
 <div id="geodir_wrapper">
     
 	<?php geodir_get_template_part('preview','buttons'); ?>
@@ -179,13 +179,13 @@ do_action('geodir_before_main_content','listing-preview-page');
                         <?php echo $main_slides;?>
                   </ul>
                 </div>
-                <?php if( $slides > 1){ ?>
+                
                     <div id="geodir_carousel" class="geodir_flexslider">
                       <ul class="slides">
                             <?php echo $nav_slides;?>
                       </ul>
                     </div>
-                <?php } ?>
+
             </div>
             <!-- Post Images slider end --> 
              <?php } ?>

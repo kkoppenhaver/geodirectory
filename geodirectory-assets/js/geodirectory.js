@@ -16,6 +16,7 @@ jQuery(document).ready(function() {
 			imageBlank: geodir_var.geodir_plugin_url + '/geodirectory-assets/images/lightbox-blank.gif'
 		});
 	}
+
 	jQuery('#geodir_carousel').flexslider({
 		animation: "slide",
 		namespace: "geodir-",
@@ -28,12 +29,13 @@ jQuery(document).ready(function() {
 		itemMargin: 5,
 		asNavFor: '#geodir_slider'
 	});
+
 	jQuery('#geodir_slider').flexslider({
 		animation: "slide",
 		selector: ".geodir-slides > li",
 		namespace: "geodir-",
 		controlNav: true,
-		animationLoop: true,
+		animationLoop: false,
 		slideshow: true,
 		sync: "#geodir_carousel",
 		start: function(slider) {
@@ -44,8 +46,27 @@ jQuery(document).ready(function() {
 			jQuery('#geodir_carousel').css({
 				'visibility': 'visible'
 			});
+		},
+		added: function(slider) {
+			console.log('slide added');
+		},
+		after: function(slider) {
+			if(slider.looping) {
+				if(slider.currentSlide == slider.count - 1) {
+					setTimeout(function(){slider.flexAnimate(0);}, 7000);
+				}
+				else {
+					setTimeout(function(){slider.flexAnimate(slider.currentSlide + 1);}, 7000);
+				}
+			}
+		},
+		end: function(slider) {
+		  	if(!slider.looping) {
+				setTimeout(function(){slider.flexAnimate(0); slider.looping = true;}, 7000);
+			}
 		}
 	});
+	
 	// Chosen selects
 	if(jQuery("select.chosen_select").length > 0) {
 		jQuery("select.chosen_select").chosen({

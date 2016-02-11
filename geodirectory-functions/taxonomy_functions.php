@@ -765,7 +765,7 @@ function geodir_addpost_categories_html($request_taxonomy, $parrent, $selected =
         <?php 
 		$cat_terms = get_terms($request_taxonomy, array('parent' => $main_cat->term_id, 'hide_empty' => false, 'exclude'=>$exclude_cats)); 
 		if(!empty($cat_terms)) { ?>
-            <span> <?php printf( __('Add listing in category',GEODIRECTORY_TEXTDOMAIN) );?></span>
+            <span> <?php printf( __('Add listing in subcategory',GEODIRECTORY_TEXTDOMAIN) );?></span>
             <?php geodir_get_catlist($request_taxonomy, $parrent, $selected) ?>
         <?php } ?>
     </div>

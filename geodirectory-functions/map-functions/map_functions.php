@@ -19,7 +19,17 @@ function geodir_init_map_canvas_array()
 function create_marker_jason_of_posts( $post ) {
 	global $wpdb, $map_jason, $add_post_in_marker_array, $geodir_cat_icons;
 	
+  // NH: (keanan)
+	if(!$post->marker_json) {
+		global $wpdb;
+		
+		$statement = "SELECT marker_json FROM geodir_gd_place_detail WHERE post_id = " . $post->ID;
+		$results = $wpdb->get_results( $statement );
+		$post->marker_json = $results[0]->marker_json;
+	} // end
+	
 	if ( !empty( $post ) && isset( $post->ID ) && $post->ID > 0 && ( is_main_query() || $add_post_in_marker_array ) && $post->marker_json != '' ) {
+		$map_marker_data = json_decode($post->marker_json); // NH: add line
 		$srcharr = array( "'", "/", "-", '"', '\\' );
 		$replarr = array( "&prime;", "&frasl;", "&ndash;", "&ldquo;", '' );
 		
@@ -37,7 +47,12 @@ function create_marker_jason_of_posts( $post ) {
 		 $post_title = $post->post_title;
 		 $title = str_replace( $srcharr, $replarr, $post_title );
 		 
-		 $map_jason[] = '{"id":"'.$post->ID.'","t": "'.$title.'","lt": "'.$post->post_latitude.'","ln": "'.$post->post_longitude.'","mk_id":"'.$post->ID.'_'.$post->default_category.'","i":"'.$icon.'"}';
+    // NH: (keanan)
+		$lat = $map_marker_data->lat_pos;
+		$lon = $map_marker_data->long_pos;
+		$icon = $map_marker_data->icon; 
+		
+		 $map_jason[] = '{"id":"'.$post->ID.'","t": "'.$title.'","lt": "'. $lat .'","ln": "'. $lon .'","mk_id":"'.$post->ID.'_'.$post->default_category.'","i":"'. $icon .'"}';
 	}
 }
 

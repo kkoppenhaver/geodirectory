@@ -141,11 +141,10 @@ jQuery(window).load(function(){
 				<div id="geodir_widget_slider" class="geodir_flexslider">
 				  <ul class="geodir-slides clearfix"><?php echo $widget_main_slides; ?></ul>
 				</div>
-				<?php if( $widget_slides > 1 ) { ?>
-				<div id="geodir_widget_carousel" class="geodir_flexslider">
+								<div id="geodir_widget_carousel" class="geodir_flexslider">
 				  <ul class="geodir-slides clearfix"><?php echo $nav_slides; ?></ul>
 				</div>
-				<?php } ?>
+
 			</div>			
 			<?php 
 			$GLOBALS['post'] = $current_post;

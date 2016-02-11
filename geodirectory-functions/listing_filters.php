@@ -634,17 +634,25 @@ function searching_filter_where($where) {
 			$rlat2 = is_numeric(max($lat1,$lat2)) ? max($lat1,$lat2) : '';
 			
 			
-			$where .= " AND ( ( $wpdb->posts.post_title LIKE \"%$s%\" $better_search_terms)
-								OR ($wpdb->posts.post_content LIKE \"%$s%\") 
-								OR ($wpdb->posts.ID IN( 
-										SELECT $wpdb->term_relationships.object_id as post_id 
-										FROM $wpdb->term_taxonomy,  $wpdb->terms, $wpdb->term_relationships 
-										WHERE $wpdb->term_taxonomy.term_id =  $wpdb->terms.term_id
-										AND $wpdb->term_relationships.term_taxonomy_id =  $wpdb->term_taxonomy.term_taxonomy_id
-										AND $wpdb->term_taxonomy.taxonomy in ({$taxonomies})
-										AND ($wpdb->terms.name LIKE\"%$s%\"  OR $wpdb->terms.name IN ($s_A))  
+			$where .= " AND (
+								($wpdb->posts.post_title LIKE \"%$s%\" $better_search_terms)
+								OR ($wpdb->posts.post_content LIKE \"%$s%\")
+								OR ($wpdb->posts.ID IN(
+									SELECT comment_post_ID FROM " . $wpdb->prefix . "comments c WHERE c.comment_content LIKE \"%$s%\"
+								)
+								OR (
+										$wpdb->posts.ID IN(
+											SELECT $wpdb->term_relationships.object_id as post_id
+											FROM $wpdb->term_taxonomy,  $wpdb->terms, $wpdb->term_relationships
+											WHERE $wpdb->term_taxonomy.term_id =  $wpdb->terms.term_id
+											AND $wpdb->term_relationships.term_taxonomy_id =  $wpdb->term_taxonomy.term_taxonomy_id
+											AND $wpdb->term_taxonomy.taxonomy in ({$taxonomies})
+											AND ($wpdb->terms.name LIKE\"%$s%\"  OR $wpdb->terms.name IN ($s_A))
 										)
-									) 
+									)
+			                )
+
+
 							)
 						AND $wpdb->posts.post_type in ('{$post_types}') 
 						AND ($wpdb->posts.post_status = 'publish') 
@@ -659,7 +667,10 @@ function searching_filter_where($where) {
 	}else
 	{
 		$where .= " AND (	( $wpdb->posts.post_title LIKE \"%$s%\" $better_search_terms) 
-							OR ( $wpdb->posts.post_content LIKE \"%$s%\") 
+							OR ( $wpdb->posts.post_content LIKE \"%$s%\")
+							OR ($wpdb->posts.ID IN(
+								SELECT comment_post_ID FROM " . $wpdb->prefix . "comments c WHERE c.comment_content LIKE \"%$s%\"
+							)
 							OR ( $wpdb->posts.ID IN(	
 									SELECT $wpdb->term_relationships.object_id as post_id                     
 									FROM $wpdb->term_taxonomy,  $wpdb->terms, $wpdb->term_relationships
@@ -668,7 +679,8 @@ function searching_filter_where($where) {
 								AND $wpdb->term_taxonomy.taxonomy in ( {$taxonomies} )
 								AND ($wpdb->terms.name LIKE\"%$s%\" OR $wpdb->terms.name IN ($s_A)) 
 								)
-						) 
+							)
+						)
 					) 
 				AND $wpdb->posts.post_type in ('$post_types') 
 				AND ($wpdb->posts.post_status = 'publish') ";

@@ -235,7 +235,8 @@ add_action( 'geodir_page_title', 'geodir_action_page_title',10);
 function geodir_action_page_title(){
 $class = apply_filters( 'geodir_page_title_class', 'entry-title fn' );
 $class_header = apply_filters( 'geodir_page_title_header_class', 'entry-header' );
-echo '<header class="'.$class_header.'"><h1 class="'.$class.'">'.stripslashes(get_the_title()).'</h1></header>';
+// NH: add the address here
+echo '<header class="'.$class_header.'"><h1 class="'.$class.'">'.get_the_title().'</h1><em class="header-address">'.geodir_show_listing_info('listing').'</em></header>';
 }
 
 
@@ -347,11 +348,10 @@ function geodir_action_details_slider() {
 			<div id="geodir_slider" class="geodir_flexslider ">
 			  <ul class="geodir-slides clearfix"><?php echo $main_slides; ?></ul>
 			</div>
-			<?php if ( $slides > 1 ) { ?>
-				<div id="geodir_carousel" class="geodir_flexslider">
-				  <ul class="geodir-slides clearfix"><?php echo $nav_slides; ?></ul>
-				</div>
-			<?php } ?>
+			
+			<div id="geodir_carousel" class="geodir_flexslider">
+			  <ul class="geodir-slides clearfix"><?php echo $nav_slides; ?></ul>
+			</div>
 		</div>
 	<?php
 	} 
@@ -867,7 +867,8 @@ echo '<header class="'.$class_header.'"><h1 class="'.$class.'">';
 add_action( 'geodir_add_listing_page_mandatory', 'geodir_action_add_listing_page_mandatory',10);
 function geodir_action_add_listing_page_mandatory(){
 $class = apply_filters( 'geodir_page_title_class', 'entry-title fn' );?>
-<p class="geodir-note "><span class="geodir-required">*</span>&nbsp;<?php echo INDICATES_MANDATORY_FIELDS_TEXT;?></p>
+<p class="geodir-note "><span class="geodir-required" style="color: red;">*</span>&nbsp;<?php echo INDICATES_MANDATORY_FIELDS_TEXT;?></p>
+<p>Suggest a new place for an activity, class or outing</p>
 <?php
 }
 
@@ -1457,6 +1458,7 @@ if(get_option('geodir_show_search_bottom_section')) { ?>
 </div><!-- clearfix ends here-->
 <?php }
 }
+
 
 function geodir_action_search_content_inside(){
 	global $gridview_columns;

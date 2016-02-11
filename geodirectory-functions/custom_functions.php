@@ -959,8 +959,9 @@ function geodir_show_detail_page_tabs(){
 	
 	?>
 	
-	<div class="geodir-tabs" id="gd-tabs" style="position:relative;">
-                   <dl class="geodir-tab-head">
+  <?php // NH: added -where to classes and ids to get rid of tab view ?>
+	<div class="geodir-tabs-where" id="gd-tabs-where" style="position:relative;">
+                   <dl class="geodir-tab-head-where hide">
                    <?php do_action('geodir_before_tab_list') ; ?>
                    <?php 
 				   		$arr_detail_page_tabs = geodir_detail_page_tabs_list();
@@ -1029,7 +1030,7 @@ function geodir_show_detail_page_tabs(){
 						do_action('geodir_after_tab_list') ; 
 					 ?>
                     </dl>
-                   <ul class="geodir-tabs-content entry-content" style="position:relative;">
+                   <ul class="geodir-tabs-content-where entry-content" style="position:relative;">
                    		<?php 
 						foreach($arr_detail_page_tabs as $detail_page_tab)
 						{
